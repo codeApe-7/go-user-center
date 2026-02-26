@@ -1,0 +1,45 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: go-user-center-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: go_user_center
+      MYSQL_USER: uc_user
+      MYSQL_PASSWORD: uc_pass
+    ports:
+      - "13306:3306"
+    volumes:
+      - go_user_center_mysql:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./backend
+    container_name: go-user-center-backend
+    restart: unless-stopped
+    environment:
+      DB_DSN: "uc_user:uc_pass@tcp(mysql:3306)/go_user_center?charset=utf8mb4&parseTime=True&loc=Local"
+      SERVER_ADDR: ":18601"
+      JWT_SECRET: "dev-secret-change-me"
+      JWT_ISSUER: "go-user-center"
+      JWT_ACCESSTTL: "30m"
+    depends_on:
+      - mysql
+    ports:
+      - "18601:18601"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: go-user-center-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE: "http://127.0.0.1:18601/api"
+    depends_on:
+      - backend
+    ports:
+      - "3301:80"
+
+volumes:
+  go_user_center_mysql:

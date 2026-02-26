@@ -1,0 +1,12 @@
+server:
+  addr: ":18601"
+
+# !!! change this in real deployments
+jwt:
+  secret: "dev-secret-change-me"
+  accessTTL: "30m"
+  refreshTTL: "168h"
+  issuer: "go-user-center"
+
+db:
+  dsn: "uc_user:uc_pass@tcp(127.0.0.1:13306)/go_user_center?charset=utf8mb4&parseTime=True&loc=Local"
