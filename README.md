@@ -11,11 +11,26 @@ A small **user center** web app for learning Go.
 - View & update profile (nickname / avatar / bio)
 - Change password
 
-## Quick Start (Docker)
+## Quick Start (Docker, 复用现有 MySQL)
+
+1) 复制环境变量：
 
 ```bash
 cd go-user-center
-docker compose up -d --build
+cp .env.example .env
+# 修改 .env 里的 DB_DSN / JWT_SECRET
+```
+
+2) 确保已有外部网络（与 mysql-production 同网段）：
+
+```bash
+docker network ls | grep polynba-mysql_lsky-net
+```
+
+3) 启动：
+
+```bash
+docker-compose up -d --build
 ```
 
 - Frontend: http://127.0.0.1:3301
