@@ -36,6 +36,13 @@ func Load() (*Config, error) {
 	v.SetDefault("jwt.refreshTTL", "168h")
 	v.SetDefault("jwt.issuer", "go-user-center")
 
+	v.SetEnvPrefix("UC")
+	v.BindEnv("db.dsn", "DB_DSN")
+	v.BindEnv("server.addr", "SERVER_ADDR")
+	v.BindEnv("jwt.secret", "JWT_SECRET")
+	v.BindEnv("jwt.accessTTL", "JWT_ACCESSTTL")
+	v.BindEnv("jwt.refreshTTL", "JWT_REFRESHTTL")
+	v.BindEnv("jwt.issuer", "JWT_ISSUER")
 	v.AutomaticEnv()
 
 	_ = v.ReadInConfig() // optional
