@@ -1,25 +1,29 @@
 <template>
-  <el-row justify="center">
-    <el-col :xs="24" :sm="16" :md="10" :lg="8">
-      <el-card>
+  <el-row justify="center" class="auth-page">
+    <el-col :xs="24" :sm="18" :md="12" :lg="10" :xl="8">
+      <el-card class="auth-card" shadow="never">
         <template #header>
-          <div class="title">注册</div>
+          <div class="title-wrap">
+            <div class="title">创建账号</div>
+            <div class="subtitle">开启你的 Go 用户中心学习之旅</div>
+          </div>
         </template>
 
         <el-form :model="form" label-position="top" @submit.prevent>
           <el-form-item label="邮箱">
-            <el-input v-model="form.email" placeholder="you@example.com" />
+            <el-input v-model="form.email" placeholder="you@example.com" size="large" />
           </el-form-item>
           <el-form-item label="昵称">
-            <el-input v-model="form.nickname" placeholder="比如：新之助" />
+            <el-input v-model="form.nickname" placeholder="比如：新之助" size="large" />
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="form.password" type="password" show-password />
+            <el-input v-model="form.password" type="password" show-password size="large" />
           </el-form-item>
 
-          <el-button type="primary" style="width: 100%" :loading="loading" @click="onRegister">
+          <el-button type="primary" size="large" style="width: 100%" :loading="loading" @click="onRegister">
             创建账号
           </el-button>
+
           <div class="hint">
             已有账号？<el-link type="primary" @click="router.push('/login')">去登录</el-link>
           </div>
@@ -60,6 +64,37 @@ async function onRegister() {
 </script>
 
 <style scoped>
-.title { font-weight: 700; }
-.hint { margin-top: 12px; color: var(--el-text-color-secondary); font-size: 13px; }
+.auth-page {
+  padding-top: 4vh;
+}
+
+.auth-card {
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+}
+
+.title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.subtitle {
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+.hint {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--text-sub);
+  font-size: 13px;
+}
 </style>
